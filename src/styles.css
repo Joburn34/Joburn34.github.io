@@ -110,7 +110,7 @@ Button:hover {
 }
 
 dialog::backdrop {
-  background-color:rgba(93, 188, 251, 1);
+  background-color:rgba(93, 188, 251, 0.5);
 }
 
 dialog{

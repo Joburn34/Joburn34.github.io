@@ -132,10 +132,18 @@ function setAnswer() {
 
   const categoryNameJS = document.getElementById("categoryName");
   categoryNameJS.innerHTML = question[categoryOrder];
-  //remove the reveal word button
+
+
+
+
+  //FONCTIONNALITÉ
   var button = document.getElementById("view_word");
   button.classList.add("hidden");
   button.innerHTML = "Afficher le mot";
+
+
+
+
   //console.log(chosenCategory);
   //console.log(chosenWord);
   answer = chosenWord;
