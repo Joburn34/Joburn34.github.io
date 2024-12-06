@@ -6,16 +6,28 @@ var hint = "";
 var life = 10;
 var wordDisplay = [];
 var winningCheck = "";
+var lost = false;
 const containerHint = document.getElementById("clue");
 const buttonHint = document.getElementById("hint");
 const buttonReset = document.getElementById("reset");
 const livesDisplay = document.getElementById("mylives");
+const dialog = document.querySelector("dialog");
+const closeButton = document.getElementById("close");
 var myStickman = document.getElementById("stickman");
 var context = myStickman.getContext("2d");
+const dontShowButton = document.getElementById("notShowAnymore")
+closeButton.addEventListener("click", () => {
+  dialog.close();
+});
 
+dialog.addEventListener("load", showDialog());
+
+function showDialog(){
+  dialog.showModal();
+}
 //generate alphabet button
 function generateButton() {
-  var buttonsHTML = "abcdefghijklmnopqrstuvwxyz"
+  var buttonsHTML = "abcçdefghijklmnopqrstuvwxyzëêêéè"
     .split("")
     .map(
       (letter) =>
@@ -44,9 +56,9 @@ function handleClick(event) {
 
 //word array
 const question = [
-  "The Chosen Category Is Premier League Football Teams",
-  "The Chosen Category Is Films",
-  "The Chosen Category Is Cities"
+  "Catégorie: Une Équipe De Soccer De La Première Ligue",
+  "Catégorie: Film",
+  "Catégorie: Villes"
 ];
 
 const categories = [
@@ -57,39 +69,60 @@ const categories = [
     "chelsea",
     "hull",
     "manchester-city",
-    "newcastle-united"
+    "newcastle-united",
+    
   ],
-  ["alien", "dirty-harry", "gladiator", "finding-nemo", "jaws"],
-  ["manchester", "milan", "madrid", "amsterdam", "prague"]
+  ["alien", "inspecteur-harry", "gladiateur", "trouver-némo", "les-dents-de-la-mer", "spider-man", "les-bagnoles", "rapides-et-dangereux"],
+  ["manchester", "milan", "madrid", "amsterdam", "prague", "washington", "montréal"]
 ];
 
 const hints = [
   [
-    "Based in Mersyside",
-    "Based in Mersyside",
-    "First Welsh team to reach the Premier Leauge",
-    "Owned by A russian Billionaire",
-    "Once managed by Phil Brown",
-    "2013 FA Cup runners up",
-    "Gazza's first club"
+    "Situé dans le Mersyside",
+    "Situé dans le Mersyside",
+    "Première équipe galloise à atteindre la Premier League",
+    "Possédée par un Milliardaire Russe",
+    "A déja été gérée par Phil Brown",
+    "Finalistes de la coupe FA de 2013",
+    "Le premier club de Gazza"
   ],
   [
-    "Science-Fiction horror film",
-    "1971 American action film",
-    "Historical drama",
-    "Anamated Fish",
-    "Giant great white shark"
+    "Film d'horreur de science-fiction",
+    "Film d'action américain de 1971",
+    "Drame historique",
+    "Poisson animé",
+    "Requin blanc géant",
+    "Film de fiction incluant un personnage costumé en rouge",
+    "voiture rapide rouge",
+    "Film de course le plus connu"
   ],
   [
-    "Northern city in the UK",
-    "Home of AC and Inter",
-    "Spanish capital",
-    "Netherlands capital",
-    "Czech Republic capital"
+    "Ville du nord du Royaume-Uni",
+    "Ville d'AC et de l'Inter",
+    "Capitale espagnole",
+    "Capitale des Pays-Bas",
+    "Capitale de la République tchèque",
+    "Capitale des États-unis",
+    "Ville ayant le plus d'habitants au Québec"
   ]
 ];
 
+window.onload = function() {
+  dialog.close();  // Afficher le dialogue avec le backdrop
+};
 //set question,answer and hint
+
+
+
+
+//FONCTIONNALITÉ
+function RevealWord(){
+  var button = document.getElementById("view_word");
+  button.innerHTML = "Le mot était: " + answer;
+}
+
+
+
 
 function setAnswer() {
   const categoryOrder = Math.floor(Math.random() * categories.length);
@@ -99,7 +132,10 @@ function setAnswer() {
 
   const categoryNameJS = document.getElementById("categoryName");
   categoryNameJS.innerHTML = question[categoryOrder];
-
+  //remove the reveal word button
+  var button = document.getElementById("view_word");
+  button.classList.add("hidden");
+  button.innerHTML = "Afficher le mot";
   //console.log(chosenCategory);
   //console.log(chosenWord);
   answer = chosenWord;
@@ -111,6 +147,7 @@ function generateAnswerDisplay(word) {
   var wordArray = word.split("");
   //console.log(wordArray);
   for (var i = 0; i < answer.length; i++) {
+    lost = false;
     if (wordArray[i] !== "-") {
       wordDisplay.push("_");
     } else {
@@ -121,7 +158,7 @@ function generateAnswerDisplay(word) {
 }
 
 function showHint() {
-  containerHint.innerHTML = `Clue - ${hint}`;
+  containerHint.innerHTML = `Indice - ${hint}`;
 }
 
 buttonHint.addEventListener("click", showHint);
@@ -134,8 +171,8 @@ function init() {
   winningCheck = "";
   context.clearRect(0, 0, 400, 400);
   canvas();
-  containerHint.innerHTML = `Clue -`;
-  livesDisplay.innerHTML = `You have ${life} lives!`;
+  containerHint.innerHTML = `Indice -`;
+  livesDisplay.innerHTML = `Tu as ${life} vies!`;
   setAnswer();
   container.innerHTML = generateButton();
   container.addEventListener("click", handleClick);
@@ -147,19 +184,22 @@ window.onload = init();
 
 //reset (play again)
 buttonReset.addEventListener("click", init);
-
 //guess click
 function guess(event) {
   const guessWord = event.target.id;
   const answerArray = answer.split("");
   var counter = 0;
   if (answer === winningCheck) {
-    livesDisplay.innerHTML = `YOU WIN!`;
+    livesDisplay.innerHTML = `TU AS GAGNÉ !`;
+    lost = false;
     return;
   } else {
     if (life > 0) {
+      lost = false;
       for (var j = 0; j < answer.length; j++) {
+        lost = false;
         if (guessWord === answerArray[j]) {
+          lost = false;
           wordDisplay[j] = guessWord;
           console.log(guessWord);
           answerDisplay.innerHTML = wordDisplay.join(" ");
@@ -176,20 +216,35 @@ function guess(event) {
         counter = 0;
       }
       if (life > 1) {
-        livesDisplay.innerHTML = `You have ${life} lives!`;
+        livesDisplay.innerHTML = `Tu as ${life} vies!`;
       } else if (life === 1) {
-        livesDisplay.innerHTML = `You have ${life} life!`;
+        livesDisplay.innerHTML = `Tu as ${life} vies!`;
       } else {
-        livesDisplay.innerHTML = `GAME OVER!`;
+        livesDisplay.innerHTML = `TU AS PERDU`;
+        lost = true;
       }
     } else {
       return;
+    } 
+    
+    
+    
+    //FONCTIONNALITÉ
+    if(lost == true){
+      var button = document.getElementById("view_word");
+      button.classList.remove("hidden");
+      button.addEventListener("click", RevealWord);
     }
+
+
+
+
     console.log(wordDisplay);
     //console.log(counter);
     //console.log(life);
     if (answer === winningCheck) {
-      livesDisplay.innerHTML = `YOU WIN!`;
+      livesDisplay.innerHTML = `TU AS GAGNÉ!`;
+      lost = false;
       return;
     }
   }

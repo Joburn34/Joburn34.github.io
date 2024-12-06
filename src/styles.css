@@ -1,7 +1,7 @@
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
     Helvetica, Arial, "Lucida Grande", sans-serif;
-  background-color: #c1d72e;
+  background-color: #083d5d;
   color: white;
   text-align: center;
   height: 100%;
@@ -40,7 +40,7 @@ p {
 }
 
 Button {
-  background: #c1d72e;
+  background: #000000;
   border-radius: 5px;
   border: solid 1px white;
   color: white;
@@ -53,18 +53,18 @@ Button:hover {
   transition: 0.5s;
   background: white;
   border: solid 1px white;
-  color: #c1d72e;
+  color: #000000;
 }
 
 .selected {
   background: white;
   border: solid 1px white;
-  color: #c1d72e;
+  color: #000000;
 }
 
 .btn-2 {
   border-radius: 10px;
-  background: #c1d72e;
+  background: #000000;
   color: white;
   border: solid 1px white;
   text-decoration: none;
@@ -81,5 +81,75 @@ Button:hover {
   transition: 0.5s;
   background: white;
   border: solid 1px white;
-  color: #c1d72e;
+  color: #083d5d;
+}
+.hidden{
+  display: none;
+}
+
+.btn-3 {
+  border-radius: 10px;
+  background: #000000;
+  color: white;
+  border: solid 1px white;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  padding: 10px 10px;
+  width: 360px;
+  height: 100px;
+  margin: 0 10px 10px 0;
+
+  outline: none;
+}
+.btn-3:hover {
+  transition: 0.5s;
+  background: white;
+  border: solid 1px white;
+  color: #083d5d;
+}
+
+dialog::backdrop {
+  background-color:rgba(93, 188, 251, 1);
+}
+
+dialog{
+  width: 500px;
+  height: 500px;
+  border-radius: 20px; 
+  border: solid blue 2px;
+}
+
+#dialogTitle{
+  border-bottom:solid #083d5d 1px;
+}
+
+.italic{
+  font-style: italic;
+  font-size: smaller;
+}
+.bold{
+  font-weight: bold;
+}
+img{
+  width: 200px;
+}
+#close{
+  width: 150px;
+  height: 50px;
+  background-color: rgb(56, 56, 241);
+  font-size: larger;
+}
+.hidden{
+  display: none;
+}
+#first{
+  display: flex;
+  justify-content: center;
+}
+#textinformation{
+  padding-right: 50px;
+}
+#buttons{
+  padding-top: 40px;
 }

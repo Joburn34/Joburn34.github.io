@@ -1,17 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>VANILLA JAVASCRIPT HANGMAN GAME</title>
+    <title>Jeu Du Pendu</title>
     <meta charset="UTF-8" />
     <link href="src/styles.css" rel="stylesheet" type="text/css" />
   </head>
 
+  <dialog id="dialog">
+  <h1 id="dialogTitle">Projet Personnel</h1>
+  <p id="infosDialog">Design-web gr.1 - automne 2024</p>
+  <div id="first">
+    <div id="textInformations">
+    <p class="bold">Réalisé par</p>
+    <p class="italic">Tommy Fontaine</p>
+    <p class="bold">Inspiration</p>
+    <a href="https://codesandbox.io/s/z9fhk">https://codesandbox.io/s/z9fhk</a>
+  </div>
+  <img src="megaman.png" alt="megaman">
+</div>
+  <div id="buttons">
+    <button id="close">Fermer</button>
+    <p class="italic" id="dontShowAnymore">Ne plus afficher cette fenêtre</p>
+  </div>
+  </dialog>
+
   <body>
     <div class="wrapper">
-      <h1>Hangman</h1>
-      <h2>Vanilla Javascript Hangman Game</h2>
+      <h1>Pendu</h1>
+      <h2>Jeu du pendu en vanilla javascript</h2>
       <p>
-        Use the alphabet below to guess the word, or click hint to get a clue.
+        Utilise l'alphapet en bas pour deviner le mot ou clique sur Indice pour avoir un indice.
       </p>
     </div>
 
@@ -20,14 +38,14 @@
       <p id="categoryName"></p>
       <div id="hold"></div>
       <p id="mylives"></p>
-      <p id="clue">Clue -</p>
+      <p id="clue">Indice -</p>
       <canvas id="stickman"
-        >This Text will show if the Browser does NOT support HTML5 Canvas
-        tag</canvas
+        >Ce texte s'affichera si le navigateur ne supporte PAS la balise HTML5 Canvas.</canvas
       >
       <div class="container">
-        <button class="btn-2" id="hint">Hint</button>
-        <button class="btn-2" id="reset">Play again</button>
+        <button class="btn-2" id="hint">Indice</button>
+        <button class="btn-2" id="reset">Rejouer</button>
+        <button class="hidden btn-3" id="view_word">Afficher le mot</button>
       </div>
     </div>
     <script src="src/index.js"></script>
